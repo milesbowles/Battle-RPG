@@ -1,0 +1,37 @@
+#mainView {
+    padding-top: 5%;
+    padding-bottom: 8%;
+    /*height: 50%;*/
+    background-color: rgba(13, 13, 20, 0.8)
+}
+
+#gameView {
+    /*background: url(../media/background/tank-bg1.gif) no-repeat center center;*/
+    /*background-size: 1500px;*/
+    /*padding-bottom: 0;*/
+
+}
+
+#controlView {
+    margin-bottom: 2%;
+    /*!*height: 50%;*!*/
+}
+
+#player {
+    width: 300px;
+}
+
+#enemy {
+    margin-left: 40%;
+    width: 300px;
+}
+
+#progress {
+    width: 100px;
+    margin-left: 20px;
+}
+
+button {
+    margin: 15px;
+    width: 100px;
+}
