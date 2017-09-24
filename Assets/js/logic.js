@@ -6,109 +6,128 @@ $(document).ready(function() {
     audioElement.setAttribute("src", "Assets/captainplanet24.mp3");
 
     var gameViewWidth = $('#gameView').width();
+    var coins = 0;
+    var level = 1;
 
 
     var player = {
-        turn: true,
         power: 30,
-        defence: 100,
         hitPoints: 100,
         speed: 20,
         weapon: 'none',
         location: document.querySelector('#player'),
+        state: {
+            forward: 'Assets/media/player/cannon/cannon-forward.gif',
+            back: 'Assets/media/player/cannon/cannon-back.gif',
+            stationary: 'Assets/media/player/cannon/cannon-stationary.gif',
+            attack: 'Assets/media/player/cannon/cannon-attack.gif'
+        },
         moveForward: function () {
             var move_forward = '+=' + (gameViewWidth / this.speed) + 'px';
-            $('#player-img').attr('src', 'Assets/media/basic-tank/move-forward.gif');
+            $('#player-img').attr('src', player.state.forward);
             $('#player').animate({ left: move_forward }, 1800);
             this.stop();
         },
         moveBackward: function () {
             var move_back = '-=' + (gameViewWidth / this.speed) + 'px';
-            $('#player-img').attr('src', 'Assets/media/basic-tank/move-backward.gif');
+            $('#player-img').attr('src', player.state.back);
             $('#player').animate({ left: move_back }, 1800);
             this.stop();
         },
         stop: function () {
             setTimeout(function() {
-                $('#player-img').attr('src', 'Assets/media/basic-tank/stationary.gif');
+                $('#player-img').attr('src', player.state.stationary);
             }, 1800);
             this.endTurn();
+
         },
         attack: function () {
+            $('#player-img').attr('src', this.state.attack);
             if (distanceBetweenElements(enemy.location,player.location) < 500){
                 console.log('distance func works!');
                 enemy.hitPoints = enemy.hitPoints - roll(player.power);
                 console.log(enemy.hitPoints);
                 enemy.updateHitPoints();
             }
-            player.endTurn();
+            player.stop();
         },
         updateHitPoints: function () {
             var percentage = this.hitPoints.toString() + '%';
             $('#player-hit-points').attr('aria-valuenow', this.hitPoints).css('width', percentage).text(this.hitPoints.toString());
+            gameover();
         },
         endTurn: function () {
-            $('#controlView').hide();
+            $('#controlView').fadeTo('slow', 0.3);
+            $('#header-label').fadeTo('slow', 0.0);
             enemy.turn();
         }
     };
 
     var enemy = {
         power: 30,
-        defence: 100,
         hitPoints: 100,
         speed: 10,
         weapon: 'none',
         location: document.querySelector('#enemy'),
+        state: {
+            forward: 'Assets/media/enemy/enemy-ufo-forward.gif',
+            back: 'Assets/media/enemy/enemy-ufo-back.gif',
+            stationary: 'Assets/media/enemy/enemy-ufo-stationary.gif',
+            attack: 'Assets/media/enemy/enemy-ufo-lazer-attack.gif'
+        },
         moveForward: function () {
             var move_forward = '-=' + (gameViewWidth / this.speed) + 'px';
-            $('#enemy-img').attr('src', 'Assets/media/basic-tank/move-forward.gif');
+            $('#enemy-img').attr('src', this.state.forward);
             $('#enemy').animate({ left: move_forward }, 1800);
             this.stop();
         },
         moveBackward: function () {
             var move_back = '+=' + (gameViewWidth / this.speed) + 'px';
-            $('#player-img').attr('src', 'Assets/media/basic-tank/move-backward.gif');
-            $('#player').animate({ left: move_back }, 1800);
+            $('#enemy-img').attr('src', this.state.back);
+            $('#enemy').animate({ left: move_back }, 1800);
             this.stop();
         },
         stop: function () {
             setTimeout(function() {
-                $('#player-img').attr('src', 'Assets/media/basic-tank/stationary.gif');
+                $('#enemy-img').attr('src', enemy.state.stationary);
             }, 1800);
             this.endTurn();
+
         },
         attack: function () {
+            $('#enemy-img').attr('src', this.state.attack);
             player.hitPoints = player.hitPoints - roll(enemy.power);
             player.updateHitPoints();
-            this.endTurn();
-        },
-        block: function () {
-            this.endTurn();
+            enemy.stop();
         },
         updateHitPoints: function () {
             var percentage = this.hitPoints.toString() + '%';
             $('#enemy-hit-points').attr('aria-valuenow', this.hitPoints).css('width', percentage).text(this.hitPoints.toString());
+            gameover();
         },
         turn: function () {
-            var randomNumber = Math.random();
             setTimeout(function() {
                 if (distanceBetweenElements(enemy.location,player.location) < 500){
-                    if (randomNumber >= 0.3) {
                         enemy.attack();
-                    } else {
-                        enemy.block();
-                    }
-
                 } else {
                     enemy.moveForward();
                 }
             }, 1800);
         },
         endTurn: function () {
-            $('#controlView').show()
+            $('#controlView').fadeTo('slow', 1);
+            $('#header-label').fadeTo('slow', 1);
         }
     };
+
+    function gameover() {
+        if (player.hitPoints <= 0) {
+            console.log("you lose")
+            roll(100)
+        } else if (enemy.hitPoints <= 0) {
+            console.log("you win!")
+        }
+    }
 
     function roll(max) {
         return Math.floor(Math.random() * max) + 1
