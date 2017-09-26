@@ -78,9 +78,9 @@ $(document).ready(function() {
         moveForward: function () {
             var move_forward = '-=' + (gameViewWidth / this.speed) + 'px';
             $('#enemy-img').attr('src', this.state.forward).css({
-                'margin-top' : '140px',
-                'height' : '450px',
-                'width' : '450px'
+                'margin-top' : '35%',
+                'height' : '190%',
+                'width' : '190%'
             });
             $('#enemy').animate({ left: move_forward }, 1800);
             this.stop();
@@ -94,9 +94,9 @@ $(document).ready(function() {
         stop: function () {
             setTimeout(function() {
                 $('#enemy-img').attr('src', enemy.state.stationary).css({
-                    'margin-top' : '160px',
-                    'height' : '400px',
-                    'width' : '400px'
+                    'margin-top' : '40%',
+                    'height' : '170%',
+                    'width' : '170%'
                 });
                 $('#controlView').fadeTo('slow', 1);
                 $('#header-label').fadeTo('slow', 1);

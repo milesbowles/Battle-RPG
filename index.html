@@ -1,86 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Captain Planet: The Game</title>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
 
-    <!-- Bootstrap File -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <!--JS-->
-    <script src="Assets/js/logic.js"></script>
-    <!--CSS-->
-    <link rel="stylesheet" href="Assets/css/style.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <!--Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="Assets/css/index-style.css">
 
 </head>
 <body>
 
-<!-- Overall Bootstrap Grid -->
-<div id="mainView" class="container-fluid">
+<div id="about" class="container-fluid">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-transparent" >
+            <div class="panel-heading">
+                <h1>Garage</h1>
+            </div>
+            <div class="panel-body">
 
-
-        <!--game view-->
-        <div id="gameView" class="container-fluid">
-
-            <div class="row">
-                <div class="col-md-2 pull-left">
-                    <div id="player-hp-bar">
-                        <h3>Player</h3>
-                        <div class="progress">
-                            <div id="player-hit-points" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                100
-                            </div>
-                        </div>
+                <!-- Left-aligned -->
+                <div class="media">
+                    <div class="media-left">
+                        <img src="Assets/media/player/cannon/cannon-stationary.gif" class="media-object" style="width:300px">
                     </div>
-                </div>
-
-                <div class="col-md-2 pull-right">
-                    <div id="enemy-hp-bar">
-                        <h3>Enemy</h3>
-                        <div class="progress">
-                            <div id="enemy-hit-points" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-                                100
-                            </div>
-                        </div>
+                    <div class="media-body">
+                        <br><br><br><br><br><br>
+                        <h2>Coins
+                            <span class="badge">42</span>
+                        </h2>
+                        <a href="battle.html">
+                            <button class="btn btn-primary btn-lg">FIGHT!</button>
+                        </a>
                     </div>
                 </div>
             </div>
-
-            <br><br><br><br>
-
-            <div class="row">
-                <div id="header-label">
-                    <h1>YOUR TURN</h1>
-                </div>
-            </div>
-
-            <br><br><br>
-
-            <div class="row">
-                <!-- Player  -->
-                <div id="player" class="col-md-1 pull-left">
-                    <img id="player-img" src='Assets/media/player/cannon/cannon-stationary.gif'>
-
-                    <div id="controlView">
-                        <button class="btn btn-primary btn-lg left-button"><span class="glyphicon glyphicon-circle-arrow-left"></span></button>
-                        <button class="btn btn-primary btn-lg right-button"><span class="glyphicon glyphicon-circle-arrow-right"></span></button>
-                        <button id="attack-btn" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-screenshot"></span></button>
-                    </div>
-                </div>
-
-                <!-- Enemy  -->
-                <div id="enemy" class="col-md-1 pull-right">
-                    <img id="enemy-img" src="Assets/media/enemy/enemy-ufo-stationary.gif">
-                </div>
-            </div>
-
         </div>
+    </div>
+</div>
+
+<div id="upgrades" class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2 col-sm-offset-2">
+            <h1>Upgrades</h1>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+        <div class="col-sm-2 col-sm-offset-2">
+            <div class="thumbnail">
+                <a href="">
+                    <img src="Assets/media/player/cannon/cannon.png" alt="Lights" style="width:100%">
+                    <div class="caption">
+                        <h3>Cannon</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <a href="">
+                    <img src="Assets/media/player/drill/drill.png" alt="Fjords" style="width:100%">
+                    <div class="caption">
+                        <h3>Drill</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <div class="thumbnail">
+                <a href="">
+                    <img src="Assets/media/player/saw/saw.png" alt="Nature" style="width:100%">
+                    <div class="caption">
+                        <h3>Saw</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 
 </div>
+
+<br><br><br><br><br><br><br><br><br><br>
 
 </body>
 </html>
