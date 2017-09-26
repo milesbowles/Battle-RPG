@@ -43,7 +43,7 @@ $(document).ready(function() {
         },
         attack: function () {
             $('#player-img').attr('src', this.state.attack);
-            if (distanceBetweenElements(enemy.location,player.location) < 500){
+            if (distanceBetweenElements(enemy.location,player.location) < 800){
                 console.log('distance func works!');
                 enemy.hitPoints = enemy.hitPoints - roll(player.power);
                 console.log(enemy.hitPoints);
@@ -64,10 +64,10 @@ $(document).ready(function() {
     };
 
     var enemy = {
-        power: 30,
+        power: 20,
         hitPoints: 100,
         speed: 10,
-        weapon: 'none',
+        range: 800,
         location: document.querySelector('#enemy'),
         state: {
             forward: 'Assets/media/enemy/enemy-ufo-forward.gif',
@@ -77,7 +77,11 @@ $(document).ready(function() {
         },
         moveForward: function () {
             var move_forward = '-=' + (gameViewWidth / this.speed) + 'px';
-            $('#enemy-img').attr('src', this.state.forward);
+            $('#enemy-img').attr('src', this.state.forward).css({
+                'margin-top' : '140px',
+                'height' : '450px',
+                'width' : '450px'
+            });
             $('#enemy').animate({ left: move_forward }, 1800);
             this.stop();
         },
@@ -89,9 +93,16 @@ $(document).ready(function() {
         },
         stop: function () {
             setTimeout(function() {
-                $('#enemy-img').attr('src', enemy.state.stationary);
+                $('#enemy-img').attr('src', enemy.state.stationary).css({
+                    'margin-top' : '160px',
+                    'height' : '400px',
+                    'width' : '400px'
+                });
+                $('#controlView').fadeTo('slow', 1);
+                $('#header-label').fadeTo('slow', 1);
+                // this.endTurn();
             }, 1800);
-            this.endTurn();
+
 
         },
         attack: function () {
@@ -107,7 +118,7 @@ $(document).ready(function() {
         },
         turn: function () {
             setTimeout(function() {
-                if (distanceBetweenElements(enemy.location,player.location) < 500){
+                if (distanceBetweenElements(enemy.location,player.location) < enemy.range){
                         enemy.attack();
                 } else {
                     enemy.moveForward();
