@@ -7,14 +7,16 @@ $(document).ready(function() {
 
     var gameViewWidth = $('#gameView').width();
     var coins = 0;
-    var level = 1;
+
+    $('#coins').html(coins.toString);
+
 
 
     var player = {
         power: 30,
-        hitPoints: 100,
+        hitPoints: 50,
         speed: 20,
-        weapon: 'none',
+        range: 1000,
         location: document.querySelector('#player'),
         state: {
             forward: 'Assets/media/player/cannon/cannon-forward.gif',
@@ -43,7 +45,7 @@ $(document).ready(function() {
         },
         attack: function () {
             $('#player-img').attr('src', this.state.attack);
-            if (distanceBetweenElements(enemy.location,player.location) < 800){
+            if (distanceBetweenElements(enemy.location,player.location) < player.range){
                 console.log('distance func works!');
                 enemy.hitPoints = enemy.hitPoints - roll(player.power);
                 console.log(enemy.hitPoints);
@@ -65,9 +67,9 @@ $(document).ready(function() {
 
     var enemy = {
         power: 20,
-        hitPoints: 100,
+        hitPoints: 50,
         speed: 10,
-        range: 800,
+        range: 1000,
         location: document.querySelector('#enemy'),
         state: {
             forward: 'Assets/media/enemy/enemy-ufo-forward.gif',
@@ -134,9 +136,14 @@ $(document).ready(function() {
     function gameover() {
         if (player.hitPoints <= 0) {
             console.log("you lose")
-            roll(100)
         } else if (enemy.hitPoints <= 0) {
-            console.log("you win!")
+            console.log("you win!");
+            $('#header-label-text').text('You Win!').fadeTo('slow', 1);
+            $('#gameOver').show('slow');
+            enemy.stop();
+            console.log(coins);
+            coins += 100;
+            console.log(coins);
         }
     }
 
@@ -158,10 +165,6 @@ $(document).ready(function() {
         player.attack();
     });
 
-    $(".down-button").on("click", function() {
-        $(".captain-planet").animate({ top: "+=200px" }, "normal");
-    });
-
     $(".left-button").on("click", function() {
         player.moveBackward()
     });
@@ -170,8 +173,5 @@ $(document).ready(function() {
         player.moveForward()
     });
 
-    $(".back-button").on("click", function() {
-        $(".captain-planet").animate({ top: "50px", left: "80px" }, "fast");
-    });
 
 });

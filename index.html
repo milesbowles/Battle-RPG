@@ -16,6 +16,9 @@
     <!--Custom CSS-->
     <link rel="stylesheet" type="text/css" href="Assets/css/index-style.css">
 
+    <!--JS-->
+    <script src="Assets/js/logic.js"></script>
+
 </head>
 <body>
 
@@ -30,15 +33,23 @@
                         <img src="Assets/media/player/cannon/cannon-stationary.gif" class="media-object" style="width:300px">
                     </div>
                     <div class="media-body">
-                        <br><br><br><br><br><br>
-                        <h2>Coins
-                            <span class="badge">0</span>
-                        </h2>
+                        <br><br><br><br><br><br><br><br><br>
                         <a href="battle.html">
-                            <button class="btn btn-primary btn-lg">FIGHT!</button>
+                            <button id="fight" class="btn btn-primary btn-lg">FIGHT!</button>
                         </a>
                     </div>
                 </div>
+                <h2>
+                    <span  id="coins" class="label label-warning glyphicon glyphicon-usd">
+                        0
+                    </span>
+                    <span class="label label-danger glyphicon glyphicon-screenshot">
+                        30
+                    </span>
+                    <span class="label label-success glyphicon glyphicon-tower">
+                        50
+                    </span>
+                </h2>
             </div>
         </div>
     </div>
@@ -54,12 +65,23 @@
     <br>
 
     <div class="row">
-        <div class="col-sm-2 col-sm-offset-2">
+        <div class="col-sm-2 col-sm-offset-3">
             <div class="thumbnail">
                 <a href="">
-                    <img src="Assets/media/player/cannon/cannon.png" alt="Lights" style="width:100%">
+                    <img src="Assets/media/player/cannon/cannon.png" style="width:100%">
                     <div class="caption">
                         <h3>Cannon</h3>
+                        <h4>
+                            <span class="label label-warning glyphicon glyphicon-usd">
+                                100
+                            </span>
+                                    <span class="label label-danger glyphicon glyphicon-screenshot">
+                                50
+                            </span>
+                                    <span class="label label-success glyphicon glyphicon-tower">
+                                100
+                            </span>
+                        </h4>
                     </div>
                 </a>
             </div>
@@ -67,9 +89,20 @@
         <div class="col-sm-2">
             <div class="thumbnail">
                 <a href="">
-                    <img src="Assets/media/player/drill/drill.png" alt="Fjords" style="width:100%">
+                    <img src="Assets/media/player/drill/drill.png" style="width:100%">
                     <div class="caption">
                         <h3>Drill</h3>
+                        <h4>
+                            <span class="label label-warning glyphicon glyphicon-usd">
+                                200
+                            </span>
+                            <span class="label label-danger glyphicon glyphicon-screenshot">
+                                70
+                            </span>
+                            <span class="label label-success glyphicon glyphicon-tower">
+                                150
+                            </span>
+                        </h4>
                     </div>
                 </a>
             </div>
@@ -77,9 +110,20 @@
         <div class="col-sm-2">
             <div class="thumbnail">
                 <a href="">
-                    <img src="Assets/media/player/saw/saw.png" alt="Nature" style="width:100%">
+                    <img src="Assets/media/player/saw/saw.png" style="width:100%">
                     <div class="caption">
                         <h3>Saw</h3>
+                        <h4>
+                            <span class="label label-warning glyphicon glyphicon-usd">
+                                100
+                            </span>
+                            <span class="label label-danger glyphicon glyphicon-screenshot">
+                                50
+                            </span>
+                            <span class="label label-success glyphicon glyphicon-tower">
+                                100
+                            </span>
+                        </h4>
                     </div>
                 </a>
             </div>
@@ -87,12 +131,6 @@
     </div>
 </div>
 
-
-
-
-</div>
-
-<br><br><br><br><br><br><br><br><br><br>
 
 </body>
 </html>
