@@ -2,22 +2,28 @@
 $(document).ready(function() {
 
     // Gets Link for Theme Song
-    var audioElement = document.createElement("audio");
-    audioElement.setAttribute("src", "Assets/captainplanet24.mp3");
+    var gameover_sfx = new Audio('Assets/media/sound-effects/game-over.wav');
+    var explosion_sfx = new Audio('Assets/media/sound-effects/explosion.wav');
+
 
     var gameViewWidth = $('#gameView').width();
     var coins = 0;
 
-    $('#coins').html(coins.toString);
 
 
+
+    // Player Object
 
     var player = {
         power: 30,
         hitPoints: 50,
         speed: 20,
-        range: 1000,
+        range: 1200,
         location: document.querySelector('#player'),
+        sfx: {
+            move: new Audio('Assets/media/sound-effects/tank-move.wav'),
+            attack: new Audio('Assets/media/sound-effects/cannon-blast.wav')
+        },
         state: {
             forward: 'Assets/media/player/cannon/cannon-forward.gif',
             back: 'Assets/media/player/cannon/cannon-back.gif',
@@ -26,12 +32,14 @@ $(document).ready(function() {
         },
         moveForward: function () {
             var move_forward = '+=' + (gameViewWidth / this.speed) + 'px';
+            player.sfx.move.play();
             $('#player-img').attr('src', player.state.forward);
             $('#player').animate({ left: move_forward }, 1800);
             this.stop();
         },
         moveBackward: function () {
             var move_back = '-=' + (gameViewWidth / this.speed) + 'px';
+            player.sfx.move.play();
             $('#player-img').attr('src', player.state.back);
             $('#player').animate({ left: move_back }, 1800);
             this.stop();
@@ -39,14 +47,14 @@ $(document).ready(function() {
         stop: function () {
             setTimeout(function() {
                 $('#player-img').attr('src', player.state.stationary);
-            }, 1800);
-            this.endTurn();
+            }, 1000);
+            enemy.turn();
 
         },
         attack: function () {
             $('#player-img').attr('src', this.state.attack);
             if (distanceBetweenElements(enemy.location,player.location) < player.range){
-                console.log('distance func works!');
+                player.sfx.attack.play();
                 enemy.hitPoints = enemy.hitPoints - roll(player.power);
                 console.log(enemy.hitPoints);
                 enemy.updateHitPoints();
@@ -58,19 +66,51 @@ $(document).ready(function() {
             $('#player-hit-points').attr('aria-valuenow', this.hitPoints).css('width', percentage).text(this.hitPoints.toString());
             gameover();
         },
+        turn: function () {
+            setTimeout(function() {
+                if (player.hitPoints > 0) {
+                    if (distanceBetweenElements(player.location,enemy.location) < player.range){
+                        player.attack();
+                    } else {
+                        player.moveForward();
+                    }
+                }
+            }, 1000);
+        },
         endTurn: function () {
-            $('#controlView').fadeTo('slow', 0.3);
-            $('#header-label').fadeTo('slow', 0.0);
+            // $('#controlView').fadeTo('slow', 0.3);
+            // $('#header-label').fadeTo('slow', 0.0);
             enemy.turn();
+        },
+        explode: function () {
+            $('#player-img').attr('src', 'Assets/media/death/explosion.gif');
+            explosion_sfx.play();
+            gameover_sfx.play();
+        },
+        death: function () {
+            setTimeout(function() {
+                $('#player-img').attr('src', 'Assets/media/death/skull.gif').css({
+                    // 'margin-top' : '130%',
+                    // 'margin-left' : '50%',
+                    'height' : '40%',
+                    'width' : '40%'
+                });
+            }, 1300);
         }
     };
+
+    // Enemy Object
 
     var enemy = {
         power: 20,
         hitPoints: 50,
         speed: 10,
-        range: 1000,
+        range: 1200,
         location: document.querySelector('#enemy'),
+        sfx: {
+            move: new Audio('Assets/media/sound-effects/ufo-move.wav'),
+            attack: new Audio('Assets/media/sound-effects/lazer-blast.wav')
+        },
         state: {
             forward: 'Assets/media/enemy/enemy-ufo-forward.gif',
             back: 'Assets/media/enemy/enemy-ufo-back.gif',
@@ -79,6 +119,7 @@ $(document).ready(function() {
         },
         moveForward: function () {
             var move_forward = '-=' + (gameViewWidth / this.speed) + 'px';
+            enemy.sfx.move.play();
             $('#enemy-img').attr('src', this.state.forward).css({
                 'margin-top' : '35%',
                 'height' : '190%',
@@ -89,6 +130,7 @@ $(document).ready(function() {
         },
         moveBackward: function () {
             var move_back = '+=' + (gameViewWidth / this.speed) + 'px';
+            enemy.sfx.move.play();
             $('#enemy-img').attr('src', this.state.back);
             $('#enemy').animate({ left: move_back }, 1800);
             this.stop();
@@ -102,13 +144,12 @@ $(document).ready(function() {
                 });
                 $('#controlView').fadeTo('slow', 1);
                 $('#header-label').fadeTo('slow', 1);
-                // this.endTurn();
-            }, 1800);
-
-
+                player.turn();
+            }, 1000);
         },
         attack: function () {
             $('#enemy-img').attr('src', this.state.attack);
+            enemy.sfx.attack.play();
             player.hitPoints = player.hitPoints - roll(enemy.power);
             player.updateHitPoints();
             enemy.stop();
@@ -120,32 +161,64 @@ $(document).ready(function() {
         },
         turn: function () {
             setTimeout(function() {
-                if (distanceBetweenElements(enemy.location,player.location) < enemy.range){
+                if (enemy.hitPoints > 0) {
+                    if (distanceBetweenElements(enemy.location,player.location) < enemy.range){
                         enemy.attack();
-                } else {
-                    enemy.moveForward();
+                    } else {
+                        enemy.moveForward();
+                    }
                 }
-            }, 1800);
+            }, 1000);
         },
         endTurn: function () {
             $('#controlView').fadeTo('slow', 1);
             $('#header-label').fadeTo('slow', 1);
+
+        },
+        explode: function () {
+            $('#enemy-img').attr('src', 'Assets/media/death/explosion.gif').css({
+                'margin-bottom' : '5%',
+                'margin-left' : '10%',
+                'height' : '120%',
+                'width' : '120%'
+            });
+            explosion_sfx.play();
+            gameover_sfx.play();
+        },
+        death: function () {
+            setTimeout(function() {
+                $('#enemy-img').attr('src', 'Assets/media/death/skull.gif').css({
+                    'margin-top' : '150%',
+                    'margin-left' : '60%',
+                    'height' : '40%',
+                    'width' : '40%'
+                });
+            }, 1500);
         }
     };
 
     function gameover() {
         if (player.hitPoints <= 0) {
-            console.log("you lose")
+            console.log("you lose");
+            enemy.explode();
+            enemy.death();
+            $('#header-label-text').text('You Lose!').fadeTo('slow', 1);
+            $('#gameOver').show('slow');
+
+
         } else if (enemy.hitPoints <= 0) {
             console.log("you win!");
+            enemy.explode();
+            enemy.death();
             $('#header-label-text').text('You Win!').fadeTo('slow', 1);
             $('#gameOver').show('slow');
-            enemy.stop();
             console.log(coins);
             coins += 100;
             console.log(coins);
         }
     }
+
+
 
     function roll(max) {
         return Math.floor(Math.random() * max) + 1
@@ -160,18 +233,21 @@ $(document).ready(function() {
         return distance;
     }
 
-    // Move Buttons
-    $("#attack-btn").on("click", function() {
-        player.attack();
-    });
+    player.turn();
 
-    $(".left-button").on("click", function() {
-        player.moveBackward()
-    });
-
-    $(".right-button").on("click", function() {
-        player.moveForward()
-    });
+    $('#coins').html(coins.toString);
+    // // Move Buttons
+    // $("#attack-btn").on("click", function() {
+    //     player.attack();
+    // });
+    //
+    // $(".left-button").on("click", function() {
+    //     player.moveBackward()
+    // });
+    //
+    // $(".right-button").on("click", function() {
+    //     player.moveForward()
+    // });
 
 
 });
