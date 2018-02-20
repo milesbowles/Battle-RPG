@@ -1,14 +1,12 @@
 <div align="center">
     <a href="https://milesbowles.github.io/Battle-RPG/">
-        <img src="https://github.com/milesbowles/Hangman-Game/blob/master/screenshots/battle.gif" alt="Battle GIF" width="800"/>
+        <img src="https://github.com/milesbowles/Battle-RPG/blob/master/screenshots/battle.gif" alt="Battle GIF" width="800"/>
     </a>
 </div>
 
-# Tanks Vs. UFO's
+# Tanks vs. UFO's
 
-An RPG game made to settle arguments. Pick a side — Tanks or UFO's — then watch to see who prevails as they battle it out. 
-
-Go ahead, give it a try!
+An RPG game made to settle arguments. Pick a side — Tanks or UFO's — then watch to see who prevails as they battle it out. Go ahead, give it a try!
 
 [**Click Here To Play!**](https://milesbowles.github.io/Battle-RPG/)
 
