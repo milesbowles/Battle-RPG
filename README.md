@@ -17,7 +17,7 @@ An RPG game made to settle arguments. Pick a side — Tanks or UFO's — then wa
 
 #### Graphics
 
-All graphics were custom made using [Pixilart](https://www.pixilart.com/). GIF's were made with [EZGif](https://ezgif.com/). Background was sourced from the web.
+All graphics were custom made using [Pixilart](https://www.pixilart.com/). GIF's were made using [EZGif](https://ezgif.com/). Background was sourced from the web.
 
 
 #### Enjoy!
